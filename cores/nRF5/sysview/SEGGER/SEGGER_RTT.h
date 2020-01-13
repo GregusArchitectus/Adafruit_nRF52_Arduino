@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       SEGGER SystemView * Real-time application analysis           *
+*       SEGGER RTT * Real Time Transfer for embedded targets         *
 *                                                                    *
 **********************************************************************
 *                                                                    *
@@ -42,9 +42,10 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       SystemView version: 3.10                                    *
+*       RTT version: 6.60d                                           *
 *                                                                    *
 **********************************************************************
+
 ---------------------------END-OF-HEADER------------------------------
 File    : SEGGER_RTT.h
 Purpose : Implementation of SEGGER real-time transfer which allows
@@ -67,6 +68,7 @@ Revision: $Rev: 17066 $
 *
 **********************************************************************
 */
+
 #ifndef RTT_USE_ASM
   #if (defined __SES_ARM)                       // SEGGER Embedded Studio
     #define _CC_HAS_RTT_ASM_SUPPORT 1
@@ -222,6 +224,7 @@ unsigned     SEGGER_RTT_GetBytesInBuffer        (unsigned BufferIndex);
 
 #if RTT_USE_ASM
   #define SEGGER_RTT_WriteSkipNoLock  SEGGER_RTT_ASM_WriteSkipNoLock
+  unsigned     SEGGER_RTT_ASM_WriteSkipNoLock     (unsigned BufferIndex, const void* pBuffer, unsigned NumBytes);
 #endif
 
 /*********************************************************************

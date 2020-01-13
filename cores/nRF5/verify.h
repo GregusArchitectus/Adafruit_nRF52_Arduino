@@ -55,8 +55,8 @@ extern "C"
 //--------------------------------------------------------------------+
 // VERIFY Helper
 //--------------------------------------------------------------------+
-#if CFG_DEBUG >= 1
-#include <stdio.h>
+#if CFG_DEBUG
+  #include <stdio.h>
   #define VERIFY_MESS(_status, _functstr) VERIFY_MESS_impl(_status, _functstr, __PRETTY_FUNCTION__, __LINE__)
   static inline void VERIFY_MESS_impl(int32_t _status, const char* (*_fstr)(int32_t), const char* func_name, int line_number)
   {

@@ -9,7 +9,7 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       SEGGER SystemView * Real-time application analysis           *
+*       SEGGER RTT * Real Time Transfer for embedded targets         *
 *                                                                    *
 **********************************************************************
 *                                                                    *
@@ -42,9 +42,10 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       SystemView version: 3.10                                    *
+*       RTT version: 6.60d                                           *
 *                                                                    *
 **********************************************************************
+
 ---------------------------END-OF-HEADER------------------------------
 File    : SEGGER_RTT.c
 Purpose : Implementation of SEGGER real-time transfer (RTT) which

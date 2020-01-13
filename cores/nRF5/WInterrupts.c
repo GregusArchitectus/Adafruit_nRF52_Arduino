@@ -215,7 +215,10 @@ void GPIOTE_IRQHandler()
   __DSB(); __NOP();__NOP();__NOP();__NOP();
 #endif
 
+    event = (uint32_t)((uint32_t)event + 4);
+  }
+
 #if CFG_SYSVIEW
-  SEGGER_SYSVIEW_RecordExitISR();
+    SEGGER_SYSVIEW_RecordExitISR();
 #endif
 }

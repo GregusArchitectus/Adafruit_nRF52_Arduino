@@ -254,4 +254,5 @@ const SEGGER_SYSVIEW_OS_API SYSVIEW_X_OS_TraceAPI = {
 
 #endif // CFG_SYSVIEW
 
+
 /*************************** End of file ****************************/

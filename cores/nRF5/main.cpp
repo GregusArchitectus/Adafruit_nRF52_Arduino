@@ -16,13 +16,10 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-// DEBUG Level 1
-#if CFG_DEBUG
 // weak function to avoid compilation error with
 // non-Bluefruit library sketch such as ADC read test
 void Bluefruit_printInfo() __attribute__((weak));
 void Bluefruit_printInfo() {}
-#endif
 
 // From the UI, setting debug level to 3 will enable SysView
 #if CFG_SYSVIEW
@@ -44,9 +41,10 @@ static void loop_task(void* arg)
 {
   (void) arg;
 
-#if CFG_DEBUG
+#if CFG_DEBUG && (CFG_LOGGER & ADALOG_TYPE_SERIAL)
+  // initialize this before setup() to allow simplified logging in setup
   // If Serial is not begin(), call it to avoid hard fault
-  if(!Serial) Serial.begin(115200);
+  if ( !Serial ) Serial.begin(115200);
 #endif
 
   setup();
@@ -69,6 +67,13 @@ static void loop_task(void* arg)
 // \brief Main entry point of Arduino application
 int main( void )
 {
+
+#if (CFG_LOGGER & ADALOG_TYPE_RTT)
+  SEGGER_RTT_Init();
+  SEGGER_RTT_ConfigUpBuffer(0, nullptr, nullptr, 0, SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL);
+  SEGGER_RTT_WriteString(0, "SEGGER Real-Time-Terminal Initialized");
+#endif
+
   init();
   initVariant();
 
@@ -99,20 +104,23 @@ void suspendLoop(void)
   vTaskSuspend(_loopHandle);
 }
 
-extern "C"
-{
+#if CFG_DEBUG
+  #if (CFG_LOGGER & ADALOG_TYPE_RTT)
+    // _write overload provided in SEGGER_RTT_Print
+  #elif (CFG_LOGGER & ADALOG_TYPE_SERIAL)
+    extern "C"
+    {
+      // nanolib printf() retarget
+      int _write (int fd, const void *buf, size_t count)
+      {
+        (void) fd;
 
-// nanolib printf() retarget
-int _write (int fd, const void *buf, size_t count)
-{
-  (void) fd;
-
-  if ( Serial )
-  {
-    return Serial.write( (const uint8_t *) buf, count);
-  }
-  return 0;
-}
-
-}
-
+        if ( Serial )
+        {
+          return Serial.write( (const uint8_t *) buf, count);
+        }
+        return 0;
+      }
+    }
+  #endif
+#endif

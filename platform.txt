@@ -48,9 +48,10 @@ compiler.elf2hex.cmd=arm-none-eabi-objcopy
 compiler.ldflags=-mcpu={build.mcu} -mthumb {build.float_flags} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align --specs=nano.specs --specs=nosys.specs
 compiler.size.cmd=arm-none-eabi-size
 
-# this can be overriden in boards.txt
+# these can be overriden in boards.txt
 build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float
 build.debug_flags=-DCFG_DEBUG=0
+# CFG_LOGGER: 1 == Serial, 2 == RTT;  See enum in cores/nRF5/common_func.h
 build.logger_flags=-DCFG_LOGGER=1
 build.sysview_flags=-DCFG_SYSVIEW=0
 

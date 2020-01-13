@@ -239,7 +239,7 @@ void dbgDumpMemoryCFormat(const char* str, void const *buf, uint16_t count)
 {
   if ( !buf )
   {
-    PRINTF("NULL\n");
+    PRINTF("%s = NULL\n", str);
     return;
   }
 
