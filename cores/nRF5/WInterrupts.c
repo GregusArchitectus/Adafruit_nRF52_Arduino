@@ -214,8 +214,6 @@ void GPIOTE_IRQHandler()
   // using memory barrier instead of read of an unrelated volatile
   __DSB(); __NOP();__NOP();__NOP();__NOP();
 #endif
-
-    event = (uint32_t)((uint32_t)event + 4);
   }
 
 #if CFG_SYSVIEW
