@@ -214,9 +214,8 @@ void GPIOTE_IRQHandler()
   // using memory barrier instead of read of an unrelated volatile
   __DSB(); __NOP();__NOP();__NOP();__NOP();
 #endif
-  }
 
 #if CFG_SYSVIEW
-    SEGGER_SYSVIEW_RecordExitISR();
+  SEGGER_SYSVIEW_RecordExitISR();
 #endif
 }
